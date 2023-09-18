@@ -7,11 +7,11 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const userCheck = await user.findOne({ email: email });
     if (!userCheck) {
-      res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
     const comparePassword = await bcrypt.compare(password, userCheck.password);
     if (!comparePassword) {
-      res
+      return res
         .status(400)
         .json({ message: "Your password or email address is incorrect." });
     }
